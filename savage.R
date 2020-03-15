@@ -29,3 +29,4 @@ simulate_savage <- function(n, m, delta=0){
 T <- sapply(1:10000, function(i) simulate_savage(20, 30, delta = 0))
 #plot histogram
 hist(T, breaks = 100)
+mean(T)
