@@ -25,7 +25,7 @@ simulate_capon <- function(n, m, rdist=rNorm, theta=1) { #rdist should be functi
   capon_stat(R[1:n], n + m)
 }
 
-T <- sapply(1:10000, function(i) simulate_capon(20, 30, rGamma, theta = 1))
+C <- sapply(1:10000, function(i) simulate_capon(20, 30, rGamma, theta = 1))
 #plot histogram
-hist(T, breaks = 100)
-mean(T)
+hist(C, breaks = 100)
+mean(C)
