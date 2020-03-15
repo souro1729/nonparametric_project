@@ -4,9 +4,9 @@
 savage_stat <- function(R, N){
   n = length(R)
   sum(
-    sapply(1:n, function(i){
+    sapply(R, function(i){
       sum(
-        sapply(1:R[i], function(j) 1/(N-j+1))
+        sapply(1:i, function(j) 1/(N-j+1))
         )  
       }
     )
