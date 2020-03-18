@@ -1,18 +1,17 @@
 #asymptotics for Capon's test
-repl = seq(110,200,10)
-
-data=function(n,m,rdist=rNorm,theta=1)
-{
-  sapply(repl,function(i) replicate(i,simulate_capon(n,m)))
-}
-
 library(sm)
-M=data(10,10) #change and can see the graphs
-par(mfrow=c(2,5))
 
-for(i in 1:length(repl))
-{
-  sm.density(M[[i]])
+repl = 1000
+mvec = seq(10, 20, 5)
+nvec = seq(10, 20, 5)
+
+par(mfrow=c(3,3))
+
+for(m in mvec){
+  for (n in nvec){
+    data = replicate(repl, simulate_capon(m,n))
+    sm.density(data)
+  }
 }
 
 sm.density(M[1,])
