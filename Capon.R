@@ -1,3 +1,5 @@
+##this file contains all the code regarding capon statistic
+
 # functions to find expectation of ith order statistic from normal
 Expectation <- function(r,n, mu=0, sigma=1) {
   integrand <- function(x,r,n,mu=0, sigma=1) {
@@ -25,7 +27,18 @@ simulate_capon <- function(n, m, rdist=rNorm, theta=1) { #rdist should be functi
   capon_stat(R[1:n], n + m)
 }
 
-C <- sapply(1:10000, function(i) simulate_capon(20, 30, rGamma, theta = 1))
-#plot histogram
-hist(C, breaks = 100)
-mean(C)
+#function to find variance of capons statistic under null
+capon_stat_var <- function(n, m) {
+  E2 <- sum(sapply(1:(n+m), function(i) Expectation(i, n + m)^2))
+  (m * n /((m + n) *(m + n - 1))) * (E2 - (n + m)) #isha dewan book page 124
+}
+
+#Returns rejection probability (null: theta=1/ alt: theta > 1)
+capon_rejection = function(n, m, 
+                           rdist = rNorm, theta=1,
+                           repl = 1000, p = 0.05) #total replication, and level
+{
+  s = replicate(repl, simulate_capon(n, m, rdist, theta))
+  crit = qnorm(p, mean = n, sd = sqrt(capon_stat_var(n, m)), lower.tail = FALSE)
+  sum(s > crit)/repl
+}

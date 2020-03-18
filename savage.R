@@ -2,7 +2,6 @@
 
 #savage statistic
 savage_stat <- function(R, N){
-  n = length(R)
   sum(
     sapply(R, function(i){
       sum(
