@@ -11,6 +11,6 @@ rWeibull <- function(n, theta, shape=5){
   rweibull(n, shape = shape, scale = theta)
 }
 
-rNorm <- function(n, theta) {
+rNorm <- function(n, theta=1) {
   rnorm(n, mean = 0, sd = theta)
 }
