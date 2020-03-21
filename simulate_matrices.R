@@ -41,7 +41,7 @@ normality_matrix <- function(nvec, mvec,
                              simulate_stat= simulate_capon, #change this input to get results of different statistics
                              p = 0.05)
 {
-  testmat = matrix(0,3,3)
+  testmat = matrix(0,length(nvec),length(mvec))
   rownames(testmat) <- nvec; colnames(testmat) <- mvec; 
   sapply(nvec, function(i){
     sapply(mvec, function(j){
