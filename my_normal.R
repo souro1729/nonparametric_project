@@ -14,6 +14,6 @@ parametric_rejection_norm = function(m, n,
   length(which(s<p))/repl
 }
 
-c=sapply(theta,parametric_rejection,m=1000,n=1000,repl=10000,p=0.05)
+c=sapply(theta,parametric_rejection_norm,m=10,n=10,repl=10000,p=0.05)
 library(lattice)
 xyplot(c~theta,type="l")
