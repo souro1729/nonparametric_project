@@ -1,0 +1,80 @@
+parametric_rejection=function(n,m,rdist=rNorm,theta=1,repl=10000,p=0.05){
+  new=function(){
+    x = rdist(m,theta= 1)
+    y = rdist(n,theta = theta)
+    var.test(y, x, alternative = "less")$p.value
+}
+  s=replicate(repl,new())
+  length(which(s<p))/repl
+}
+
+
+
+
+power_curve <- function(n, m, from=0.2, to=1, len=30,
+                        rdist=rNorm, stat_rejection = parametric_rejection,
+                        repl=1000)
+{
+  theta <- seq(from, to, length.out = len)
+  power <- pbsapply(theta,function(i){
+
+    stat_rejection(n, m, rdist = rdist, theta = i, repl = repl)
+  })
+
+
+
+  #Please create a Folder named "New" in your working directory...
+
+
+
+ write.csv(power, sprintf("Small/power -- %s (%.0f, %.0f) -- %s -- %.2f, %.2f, %.2f -- repl=%0.f.csv",
+                           as.character(substitute(stat_rejection)), n, m,
+                          as.character(substitute(rdist)), from, to, len, repl))
+
+ library("lattice")
+  xyplot(power~theta,type="l",xlim = c(to + 0.2, from - 0.2),ylim = c(0,1.05),grid=TRUE,
+         panel = function(...){
+    panel.xyplot(...)
+    panel.abline(h=c(0.05,1),col.line = c("blue","red"))
+  })
+}
+
+
+
+
+
+
+
+# #Large_Sample_comparison
+# power_curve(30,30,len=1000,repl = 1000)
+# power_curve(30,30,len=1000,repl=1000,rdist = rExp)
+# power_curve(30,30,len=1000,repl=1000,rdist = rGamma)
+# power_curve(30,30,len=1000,repl=1000,rdist = rLogis)
+# power_curve(30,30,len=1000,repl=1000,rdist = rWeibull)
+
+
+#Large_Sample
+
+# power_curve(50,50,len=1000,repl = 10000)
+# power_curve(50,50,len=1000,repl=10000,rdist = rExp)
+# power_curve(50,50,len=1000,repl=10000,rdist = rGamma)
+# power_curve(50,50,len=1000,repl=10000,rdist = rLogis)
+# power_curve(50,50,len=1000,repl=10000,rdist = rWeibull)
+
+
+
+
+#small_sample
+power_curve(10,10,len=1000,repl = 10000,from=0.1)
+power_curve(10,10,len=1000,repl=10000,rdist = rExp,from = 0.1)
+power_curve(10,10,len=1000,repl=10000,rdist = rExp,from=0.045)
+power_curve(10,10,len=1000,repl=10000,rdist = rGamma,from=0.1)
+power_curve(10,10,len=1000,repl=10000,rdist = rLogis,from=0.1)
+power_curve(10,10,len=1000,repl=10000,rdist = rWeibull,from=0.1)
+
+
+
+
+
+
+
