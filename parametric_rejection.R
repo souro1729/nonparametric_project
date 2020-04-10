@@ -27,7 +27,7 @@ power_curve <- function(n, m, from=0.2, to=1, len=30,
 
 
 
- write.csv(power, sprintf("Small/power -- %s (%.0f, %.0f) -- %s -- %.2f, %.2f, %.2f -- repl=%0.f.csv",
+ write.csv(power, sprintf("New/power -- %s (%.0f, %.0f) -- %s -- %.2f, %.2f, %.2f -- repl=%0.f.csv",
                            as.character(substitute(stat_rejection)), n, m,
                           as.character(substitute(rdist)), from, to, len, repl))
 
@@ -55,11 +55,11 @@ power_curve <- function(n, m, from=0.2, to=1, len=30,
 
 #Large_Sample
 
-# power_curve(50,50,len=1000,repl = 10000)
-# power_curve(50,50,len=1000,repl=10000,rdist = rExp)
-# power_curve(50,50,len=1000,repl=10000,rdist = rGamma)
-# power_curve(50,50,len=1000,repl=10000,rdist = rLogis)
-# power_curve(50,50,len=1000,repl=10000,rdist = rWeibull)
+power_curve(50,50,len=1000,repl = 10000)
+power_curve(50,50,len=1000,repl=10000,rdist = rExp)
+power_curve(50,50,len=1000,repl=10000,rdist = rGamma)
+power_curve(50,50,len=1000,repl=10000,rdist = rLogis)
+power_curve(50,50,len=1000,repl=10000,rdist = rWeibull)
 
 
 
