@@ -1,5 +1,6 @@
 
 Chii=function(n,m=40,breaking=20){
+  set.seed(42)
   require(zoo)
   require(ggplot2)
   z=data.frame(replicate(n,(rchisq(1,m)-m)/sqrt(2*m)))
@@ -15,5 +16,19 @@ Chii=function(n,m=40,breaking=20){
 }
 a=Chii(n=50,m=50,breaking = 25)
 
+a$shapiro_test
+a$chisq.test
 
 ggplot(data=a$data,aes(sample=a$data[,1]))+geom_qq(colour="red")+geom_qq_line(colour="blue")
+
+
+
+
+
+
+
+
+
+
+
+
