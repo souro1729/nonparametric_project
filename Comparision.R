@@ -62,7 +62,7 @@ c_exp=ggplot(data=data,aes(theta))+ylim(0,1)+geom_line(aes(y=capon_Exp,colour="C
   labs(title = "Exponential",colour="Colour")+theme(plot.title = element_text(hjust = 0.5,size = 10))+
   theme(axis.title.y = element_blank(),axis.title.x = element_blank())
 
-c_exp
+#c_exp
 c_log=ggplot(data,aes(theta))+ylim(0,1)+geom_line(aes(y=capon_Log,colour="Capon"))+
   geom_line(aes(y=para_Log,colour="Para"))+xlim(0.95,5.05)+
   scale_colour_manual(values =c("Capon"="red","Para"="blue"))+theme(legend.position=c(0.15,0.9),legend.key.size = unit(0.1,"cm"))+
@@ -110,7 +110,7 @@ c_exp=ggplot(data=data,aes(theta))+ylim(0,1)+geom_line(aes(y=savage_Exp,colour="
   labs(title = "Exponential",colour="Colour")+theme(plot.title = element_text(hjust = 0.5,size = 10))+
   theme(axis.title.y = element_blank(),axis.title.x = element_blank())
 
-c_exp
+#c_exp
 # c_log=ggplot(data,aes(theta))+ylim(0,1)+geom_line(aes(y=savage_Log,colour="Savage"))+
 #   geom_line(aes(y=para_Log,colour="Para"))+xlim(0.95,5.05)+
 #   scale_colour_manual(values =c("Savage"="red","Para"="blue"))+theme(legend.position=c(0.15,0.9),legend.key.size = unit(0.1,"cm"))+
@@ -156,7 +156,7 @@ c_exp=ggplot(data=data,aes(theta))+ylim(0,1)+geom_line(aes(y=capon_Exp,colour="C
   labs(title = "Exponential",colour="Colour")+theme(plot.title = element_text(hjust = 0.5,size = 10))+
   theme(axis.title.y = element_blank(),axis.title.x = element_blank())
 
-c_exp
+#c_exp
 # c_log=ggplot(data,aes(theta))+ylim(0,1)+geom_line(aes(y=capon_Log,colour="Capon"))+
 #   geom_line(aes(y=savage_Log,colour="Savage"))+xlim(0.95,5.05)+
 #   scale_colour_manual(values =c("Capon"="red","Savage"="blue"))+theme(legend.position=c(0.15,0.9),legend.key.size = unit(0.1,"cm"))+
@@ -206,7 +206,7 @@ c_exp=ggplot(data=data,aes(theta))+ylim(0,1)+geom_line(aes(y=capon_Exp,colour="C
   labs(title = "Exponential",colour="Colour")+theme(plot.title = element_text(hjust = 0.5,size = 10))+
   theme(axis.title.y = element_blank(),axis.title.x = element_blank())
 
-c_exp
+#c_exp
 # c_log=ggplot(data,aes(theta))+ylim(0,1)+geom_line(aes(y=capon_Log,colour="Capon"))+
 #   geom_line(aes(y=para_Log,colour="Para"))+geom_line(aes(y=savage_log,colour="Savage"))+xlim(0.95,5.05)+
 #   scale_colour_manual(values =c("Capon"="red","Para"="blue","Savage"="green"))+theme(legend.position=c(0.15,0.9),legend.key.size = unit(0.1,"cm"))+
@@ -241,7 +241,7 @@ c_gamma=ggplot(data,aes(theta))+ylim(0,1)+geom_line(aes(y=capon_Gam,colour="Capo
 
 figure=ggarrange(c_normal,c_exp,c_weibull,c_gamma,ncol=2,nrow = 3)
 annotate_figure(figure,left = text_grob("Power Of The Test Statistic",rot=90),
-                bottom = text_grob("theta",size = 16),top =text_grob("Comparisions Of F, Savage And Capon",face="bold",color = "brown",))
+                bottom = text_grob("theta",size = 16),top =text_grob("Comparisions Of F, Savage And Capon",face="bold",color = "brown"))
 ##########################################################
 
 
