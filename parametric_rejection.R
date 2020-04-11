@@ -15,6 +15,7 @@ power_curve <- function(n, m, from=0.2, to=1, len=30,
                         rdist=rNorm, stat_rejection = parametric_rejection,
                         repl=1000)
 {
+  require(pbapply)
   theta <- seq(from, to, length.out = len)
   power <- pbsapply(theta,function(i){
 
@@ -45,12 +46,12 @@ power_curve <- function(n, m, from=0.2, to=1, len=30,
 
 
 
-# #Large_Sample_comparison
-# power_curve(30,30,len=1000,repl = 1000)
-# power_curve(30,30,len=1000,repl=1000,rdist = rExp)
-# power_curve(30,30,len=1000,repl=1000,rdist = rGamma)
-# power_curve(30,30,len=1000,repl=1000,rdist = rLogis)
-# power_curve(30,30,len=1000,repl=1000,rdist = rWeibull)
+#Large_Sample_comparison
+power_curve(30,30,len=1000,repl = 1000)
+power_curve(30,30,len=1000,repl=1000,rdist = rExp)
+power_curve(30,30,len=1000,repl=1000,rdist = rGamma)
+power_curve(30,30,len=1000,repl=1000,rdist = rLogis)
+power_curve(30,30,len=1000,repl=1000,rdist = rWeibull)
 
 
 #Large_Sample
@@ -66,8 +67,8 @@ power_curve(50,50,len=1000,repl=10000,rdist = rWeibull)
 
 #small_sample
 power_curve(10,10,len=1000,repl = 10000,from=0.1)
-power_curve(10,10,len=1000,repl=10000,rdist = rExp,from = 0.1)
-power_curve(10,10,len=1000,repl=10000,rdist = rExp,from=0.045)
+power_curve(10,10,len=1000,repl=500,rdist = rExp,from = 0.1)
+###power_curve(10,10,len=1000,repl=10000,rdist = rExp,from=0.045)
 power_curve(10,10,len=1000,repl=10000,rdist = rGamma,from=0.1)
 power_curve(10,10,len=1000,repl=10000,rdist = rLogis,from=0.1)
 power_curve(10,10,len=1000,repl=10000,rdist = rWeibull,from=0.1)
