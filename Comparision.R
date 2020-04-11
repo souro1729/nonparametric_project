@@ -97,7 +97,7 @@ c_gamma=ggplot(data,aes(theta))+ylim(0,1)+geom_line(aes(y=capon_Gam,colour="Capo
 
 figure=ggarrange(c_normal,c_log,c_exp,c_weibull,c_gamma,ncol=2,nrow = 3)
 annotate_figure(figure,left = text_grob("Power Of The Test Statistic",rot=90),
-                bottom = text_grob("theta",size = 16),top =text_grob("Comparision Between F And Capon",face="bold"))
+                bottom = text_grob("theta",size = 16),top =text_grob("Comparision Between F And Capon",face="bold",color = "brown"))
 ##########################################
 
 
@@ -145,7 +145,7 @@ c_gamma=ggplot(data,aes(theta))+ylim(0,1)+geom_line(aes(y=savage_Gam,colour="Sav
 
 figure=ggarrange(c_normal,c_exp,c_weibull,c_gamma,ncol=2,nrow = 3)
 annotate_figure(figure,left = text_grob("Power Of The Test Statistic",rot=90),
-                bottom = text_grob("theta",size = 16),top =text_grob("Comparision Between F And Savage",face="bold"))
+                bottom = text_grob("theta",size = 16),top =text_grob("Comparision Between F And Savage",face="bold",color="brown"))
 ##################################################
 
 
@@ -191,7 +191,7 @@ c_gamma=ggplot(data,aes(theta))+ylim(0,1)+geom_line(aes(y=capon_Gam,colour="Capo
 
 figure=ggarrange(c_normal,c_exp,c_weibull,c_gamma,ncol=2,nrow = 3)
 annotate_figure(figure,left = text_grob("Power Of The Test Statistic",rot=90),
-                bottom = text_grob("theta",size = 16),top =text_grob("Comparision Between Savage And Capon",face="bold"))
+                bottom = text_grob("theta",size = 16),top =text_grob("Comparision Between Savage And Capon",face="bold",color = "brown"))
 #################################################
 
 
@@ -241,9 +241,8 @@ c_gamma=ggplot(data,aes(theta))+ylim(0,1)+geom_line(aes(y=capon_Gam,colour="Capo
 
 figure=ggarrange(c_normal,c_exp,c_weibull,c_gamma,ncol=2,nrow = 3)
 annotate_figure(figure,left = text_grob("Power Of The Test Statistic",rot=90),
-                bottom = text_grob("theta",size = 16),top =text_grob("Comparision Between F, Savage And Capon",face="bold"))
+                bottom = text_grob("theta",size = 16),top =text_grob("Comparisions Of F, Savage And Capon",face="bold",color = "brown",))
 ##########################################################
-
 
 
 
