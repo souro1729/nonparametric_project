@@ -23,7 +23,7 @@ savage_Weib=as.vector(read.csv("~/Desktop/GIT/nonparametric_project/data2/power 
 
 savage_Gam=as.vector(read.csv("~/Desktop/GIT/nonparametric_project/data2/power -- savage_rejection (30, 30) -- rGamma -- 0.20, 1.00, 1000.00 -- repl=1000.csv"))[,-1]
 
-#savage_Log=as.vector(read.csv("~/Desktop/GIT/nonparametric_project/data2/power -- savage_rejection (30, 30) -- rLogis -- 0.20, 1.00, 1000.00 -- repl=1000.csv"))[,-1]
+savage_Log=as.vector(read.csv("~/Desktop/GIT/nonparametric_project/data2/power -- savage_rejection (30, 30) -- rLogis -- 0.20, 1.00, 1000.00 -- repl=1000.csv"))[,-1]
 
 
 
@@ -46,208 +46,132 @@ para_Gam=as.vector(read.csv("~/Desktop/GIT/Nonparametric/data/power -- parametri
 
 
 
+
 #para_Gam
-theta=seq(5,1,len=1000)
+
 
 #theta
-data=data.frame(cbind(capon_Exp,savage_Exp,para_Exp,capon_Gam,savage_Gam,para_Gam,capon_Log,
+data=data.frame(cbind(capon_Exp,savage_Exp,para_Exp,capon_Gam,savage_Gam,para_Gam,capon_Log,savage_Log,
            para_Log,capon_Norm,savage_Norm,para_Norm,capon_Weib,savage_Weib,para_Weib,theta))
 
+Parametric=data.frame(cbind(para_Exp,para_Gam,para_Log,para_Norm,para_Weib))
+Capon=data.frame(cbind(capon_Exp,capon_Gam,capon_Log,capon_Norm,capon_Weib))
+Savage=data.frame(cbind(savage_Exp,savage_Gam,savage_Log,savage_Norm,savage_Weib))
+theta=seq(5,1,len=1000)
+
+
+
 library(ggplot2)
-library(ggpubr)
+library(dplyr)
+library(reshape2)
 
-c_exp=ggplot(data=data,aes(theta))+ylim(0,1)+geom_line(aes(y=capon_Exp,colour="Capon"))+
-  geom_line(aes(y=para_Exp,colour="Para"))+xlim(0.95,5.05)+
-  scale_colour_manual(values =c("Capon"="red","Para"="blue"))+theme(legend.position=c(0.15,0.9),legend.key.size = unit(0.1,"cm"))+
-  labs(title = "Exponential",colour="Colour")+theme(plot.title = element_text(hjust = 0.5,size = 10))+
-  theme(axis.title.y = element_blank(),axis.title.x = element_blank())
 
-#c_exp
-c_log=ggplot(data,aes(theta))+ylim(0,1)+geom_line(aes(y=capon_Log,colour="Capon"))+
-  geom_line(aes(y=para_Log,colour="Para"))+xlim(0.95,5.05)+
-  scale_colour_manual(values =c("Capon"="red","Para"="blue"))+theme(legend.position=c(0.15,0.9),legend.key.size = unit(0.1,"cm"))+
-  labs(title = "Logistic",colour="Colour")+theme(plot.title = element_text(hjust = 0.5,size = 10))+
-  theme(axis.title.y = element_blank(),axis.title.x = element_blank())
 
-c_normal=ggplot(data,aes(theta))+ylim(0,1)+geom_line(aes(y=capon_Norm,colour="Capon"))+
-  geom_line(aes(y=para_Norm,colour="Para"))+xlim(0.95,5.05)+
-  scale_colour_manual(values =c("Capon"="red","Para"="blue"))+theme(legend.position=c(0.15,0.9),legend.key.size = unit(0.1,"cm"))+
-  labs(title = "Normal",colour="Colour")+theme(plot.title = element_text(hjust = 0.5,size = 10))+
-  theme(axis.title.y = element_blank(),axis.title.x = element_blank())
 
+PC=cbind(Parametric,Capon)
+encode_pc=gather(cbind(PC,theta),key = "measure",value = "value",c(-"theta"))
+Distribution=rep(c("Exponential","Gamma","Logistic","Normal","Weibull"),each=1000,times=2)
+Statistic=rep(c("F","Capon"),each=5000)
+#theta=rep(seq(1,5,length=1000),times=10)
+#df1=melt(df) %>% select(-variable) %>% mutate(Distribution=Distribution,Statistic=
+#                                                                     Statistic, theta=theta)
 
 
 
 
-c_weibull=ggplot(data,aes(theta))+ylim(0,1)+geom_line(aes(y=capon_Weib,colour="Capon"))+
-  geom_line(aes(y=para_Weib,colour="Para"))+xlim(0.95,5.05)+
-  scale_colour_manual(values =c("Capon"="red","Para"="blue"))+theme(legend.position=c(0.15,0.9),legend.key.size = unit(0.1,"cm"))+
-  labs(title = "Weibull",colour="Colour")+theme(plot.title = element_text(hjust = 0.5,size = 10))+
-  theme(axis.title.y = element_blank(),axis.title.x = element_blank())
+encode_pc["measure"]=Statistic
+encode_pc=cbind(encode_pc,Distribution)
 
+ggplot(encode_pc,aes(x=theta,y=value,colour=Statistic))+geom_line()+facet_wrap(~Distribution,ncol=3,scales = "free")+
+  labs(title = "Comparison of power graph of\n F and Capon  statistic",y="Power")+
+  theme_mine()
 
 
-c_gamma=ggplot(data,aes(theta))+ylim(0,1)+geom_line(aes(y=capon_Gam,colour="Capon"))+
-  geom_line(aes(y=para_Gam,colour="Para"))+xlim(0.95,5.05)+
-  scale_colour_manual(values =c("Capon"="red","Para"="blue"))+theme(legend.position=c(0.15,0.9),legend.key.size = unit(0.1,"cm"))+
-  labs(title = "Gamma",colour="Colour")+theme(plot.title = element_text(hjust = 0.5,size = 10))+
-  theme(axis.title.y = element_blank(),axis.title.x = element_blank())
 
 
 
-figure=ggarrange(c_normal,c_log,c_exp,c_weibull,c_gamma,ncol=2,nrow = 3)
-annotate_figure(figure,left = text_grob("Power Of The Test Statistic",rot=90),
-                bottom = text_grob("theta",size = 16),top =text_grob("Comparision Between F And Capon",face="bold",color = "brown"))
-##########################################
 
 
 
 
 
-c_exp=ggplot(data=data,aes(theta))+ylim(0,1)+geom_line(aes(y=savage_Exp,colour="Savage"))+
-  geom_line(aes(y=para_Exp,colour="Para"))+xlim(0.95,5.05)+
-  scale_colour_manual(values =c("Savage"="red","Para"="blue"))+theme(legend.position=c(0.15,0.9),legend.key.size = unit(0.1,"cm"))+
-  labs(title = "Exponential",colour="Colour")+theme(plot.title = element_text(hjust = 0.5,size = 10))+
-  theme(axis.title.y = element_blank(),axis.title.x = element_blank())
 
-#c_exp
-# c_log=ggplot(data,aes(theta))+ylim(0,1)+geom_line(aes(y=savage_Log,colour="Savage"))+
-#   geom_line(aes(y=para_Log,colour="Para"))+xlim(0.95,5.05)+
-#   scale_colour_manual(values =c("Savage"="red","Para"="blue"))+theme(legend.position=c(0.15,0.9),legend.key.size = unit(0.1,"cm"))+
-#   labs(title = "Logistic",colour="Colour")+theme(plot.title = element_text(hjust = 0.5,size = 10))+
-#   theme(axis.title.y = element_blank(),axis.title.x = element_blank())
 
-c_normal=ggplot(data,aes(theta))+ylim(0,1)+geom_line(aes(y=savage_Norm,colour="Savage"))+
-  geom_line(aes(y=para_Norm,colour="Para"))+xlim(0.95,5.05)+
-  scale_colour_manual(values =c("Savage"="red","Para"="blue"))+theme(legend.position=c(0.15,0.9),legend.key.size = unit(0.1,"cm"))+
-  labs(title = "Normal",colour="Colour")+theme(plot.title = element_text(hjust = 0.5,size = 10))+
-  theme(axis.title.y = element_blank(),axis.title.x = element_blank())
 
 
 
+PS=cbind(Parametric,Savage,theta)
+encode_ps=gather(PS,key = "measure",value = "value",c(-"theta"))
+Distribution=rep(c("Exponential","Gamma","Logistic","Normal","Weibull"),each=1000,times=2)
+Statistic=rep(c("F","Savage"),each=5000)
+# theta=rep(seq(1,5,length=1000),times=10)
+#df1=melt(df) %>% select(-variable) %>% mutate(Distribution=Distribution,Statistic=
+#                                                                     Statistic, theta=theta)
 
 
-c_weibull=ggplot(data,aes(theta))+ylim(0,1)+geom_line(aes(y=savage_Weib,colour="Savage"))+
-  geom_line(aes(y=para_Weib,colour="Para"))+xlim(0.95,5.05)+
-  scale_colour_manual(values =c("Savage"="red","Para"="blue"))+theme(legend.position=c(0.15,0.9),legend.key.size = unit(0.1,"cm"))+
-  labs(title = "Weibull",colour="Colour")+theme(plot.title = element_text(hjust = 0.5,size = 10))+
-  theme(axis.title.y = element_blank(),axis.title.x = element_blank())
 
 
+encode_ps["measure"]=Statistic
+encode_ps
+encode_ps=cbind(encode_ps,Distribution)
+encode_ps
 
-c_gamma=ggplot(data,aes(theta))+ylim(0,1)+geom_line(aes(y=savage_Gam,colour="Savage"))+
-  geom_line(aes(y=para_Gam,colour="Para"))+xlim(0.95,5.05)+
-  scale_colour_manual(values =c("Savage"="red","Para"="blue"))+theme(legend.position=c(0.15,0.9),legend.key.size = unit(0.1,"cm"))+
-  labs(title = "Gamma",colour="Colour")+theme(plot.title = element_text(hjust = 0.5,size = 10))+
-  theme(axis.title.y = element_blank(),axis.title.x = element_blank())
+ggplot(encode_ps,aes(x=theta,y=value,colour=Statistic))+geom_line()+facet_wrap(~Distribution,ncol=3,scales = "free")+
+  labs(title = "Comparison of power graph of\n F and Savage  statistic",y="Power")+
+  theme_mine()
 
 
 
-figure=ggarrange(c_normal,c_exp,c_weibull,c_gamma,ncol=2,nrow = 3)
-annotate_figure(figure,left = text_grob("Power Of The Test Statistic",rot=90),
-                bottom = text_grob("theta",size = 16),top =text_grob("Comparision Between F And Savage",face="bold",color="brown"))
-##################################################
 
 
 
-c_exp=ggplot(data=data,aes(theta))+ylim(0,1)+geom_line(aes(y=capon_Exp,colour="Capon"))+
-  geom_line(aes(y=savage_Exp,colour="Savage"))+xlim(0.95,5.05)+
-  scale_colour_manual(values =c("Capon"="red","Savage"="blue"))+theme(legend.position=c(0.15,0.9),legend.key.size = unit(0.1,"cm"))+
-  labs(title = "Exponential",colour="Colour")+theme(plot.title = element_text(hjust = 0.5,size = 10))+
-  theme(axis.title.y = element_blank(),axis.title.x = element_blank())
 
-#c_exp
-# c_log=ggplot(data,aes(theta))+ylim(0,1)+geom_line(aes(y=capon_Log,colour="Capon"))+
-#   geom_line(aes(y=savage_Log,colour="Savage"))+xlim(0.95,5.05)+
-#   scale_colour_manual(values =c("Capon"="red","Savage"="blue"))+theme(legend.position=c(0.15,0.9),legend.key.size = unit(0.1,"cm"))+
-#   labs(title = "Logistic",colour="Colour")+theme(plot.title = element_text(hjust = 0.5,size = 10))+
-#   theme(axis.title.y = element_blank(),axis.title.x = element_blank())
 
-c_normal=ggplot(data,aes(theta))+ylim(0,1)+geom_line(aes(y=capon_Norm,colour="Capon"))+
-  geom_line(aes(y=savage_Norm,colour="Savage"))+xlim(0.95,5.05)+
-  scale_colour_manual(values =c("Capon"="red","Savage"="blue"))+theme(legend.position=c(0.15,0.9),legend.key.size = unit(0.1,"cm"))+
-  labs(title = "Normal",colour="Colour")+theme(plot.title = element_text(hjust = 0.5,size = 10))+
-  theme(axis.title.y = element_blank(),axis.title.x = element_blank())
 
 
 
+CS=cbind(Capon,Savage,theta)
+encode_cs=gather(CS,key = "measure",value = "value",c(-"theta"))
+Distribution=rep(c("Exponential","Gamma","Logistic","Normal","Weibull"),each=1000,times=2)
+Statistic=rep(c("Capon","Savage"),each=5000)
+# theta=rep(seq(1,5,length=1000),times=10)
+#df1=melt(df) %>% select(-variable) %>% mutate(Distribution=Distribution,Statistic=
+#                                                                     Statistic, theta=theta)
 
 
-c_weibull=ggplot(data,aes(theta))+ylim(0,1)+geom_line(aes(y=capon_Weib,colour="Capon"))+
-  geom_line(aes(y=savage_Weib,colour="Savage"))+xlim(0.95,5.05)+
-  scale_colour_manual(values =c("Capon"="red","Savage"="blue"))+theme(legend.position=c(0.15,0.9),legend.key.size = unit(0.1,"cm"))+
-  labs(title = "Weibull",colour="Colour")+theme(plot.title = element_text(hjust = 0.5,size = 10))+
-  theme(axis.title.y = element_blank(),axis.title.x = element_blank())
 
 
+encode_cs["measure"]=Statistic
 
-c_gamma=ggplot(data,aes(theta))+ylim(0,1)+geom_line(aes(y=capon_Gam,colour="Capon"))+
-  geom_line(aes(y=savage_Gam,colour="Savage"))+xlim(0.95,5.05)+
-  scale_colour_manual(values =c("Capon"="red","Savage"="blue"))+theme(legend.position=c(0.15,0.9),legend.key.size = unit(0.1,"cm"))+
-  labs(title = "Gamma",colour="Colour")+theme(plot.title = element_text(hjust = 0.5,size = 10))+
-  theme(axis.title.y = element_blank(),axis.title.x = element_blank())
+encode_cs=cbind(encode_cs,Distribution)
 
 
+ggplot(encode_cs,aes(x=theta,y=value,colour=Statistic))+geom_line()+facet_wrap(~Distribution,ncol=3,scales = "free")+
+  labs(title = "Comparison of power graph of\n Capon and Savage  statistic",y="Power")+
+  theme_mine()
 
-figure=ggarrange(c_normal,c_exp,c_weibull,c_gamma,ncol=2,nrow = 3)
-annotate_figure(figure,left = text_grob("Power Of The Test Statistic",rot=90),
-                bottom = text_grob("theta",size = 16),top =text_grob("Comparision Between Savage And Capon",face="bold",color = "brown"))
-#################################################
 
 
 
+PCS=cbind(Parametric,Capon,Savage,theta)
+encode_pcs=gather(PCS,key = "measure",value = "value",c(-"theta"))
+Distribution=rep(c("Exponential","Gamma","Logistic","Normal","Weibull"),each=1000,times=3)
+Statistic=rep(c("F","Capon","Savage"),each=5000)
+# theta=rep(seq(1,5,length=1000),times=10)
+#df1=melt(df) %>% select(-variable) %>% mutate(Distribution=Distribution,Statistic=
+#                                                                     Statistic, theta=theta)
 
 
 
 
-c_exp=ggplot(data=data,aes(theta))+ylim(0,1)+geom_line(aes(y=capon_Exp,colour="Capon"))+
-  geom_line(aes(y=para_Exp,colour="Para"))+geom_line(aes(y=savage_Exp,colour="Savage"))+xlim(0.95,5.05)+
-  scale_colour_manual(values =c("Capon"="red","Para"="blue","Savage"="green"))+theme(legend.position=c(0.15,0.9),legend.key.size = unit(0.1,"cm"))+
-  labs(title = "Exponential",colour="Colour")+theme(plot.title = element_text(hjust = 0.5,size = 10))+
-  theme(axis.title.y = element_blank(),axis.title.x = element_blank())
+encode_pcs["measure"]=Statistic
 
-#c_exp
-# c_log=ggplot(data,aes(theta))+ylim(0,1)+geom_line(aes(y=capon_Log,colour="Capon"))+
-#   geom_line(aes(y=para_Log,colour="Para"))+geom_line(aes(y=savage_log,colour="Savage"))+xlim(0.95,5.05)+
-#   scale_colour_manual(values =c("Capon"="red","Para"="blue","Savage"="green"))+theme(legend.position=c(0.15,0.9),legend.key.size = unit(0.1,"cm"))+
-#   labs(title = "Logistic",colour="Colour")+theme(plot.title = element_text(hjust = 0.5,size = 10))+
-#   theme(axis.title.y = element_blank(),axis.title.x = element_blank())
+encode_pcs=cbind(encode_pcs,Distribution)
 
-c_normal=ggplot(data,aes(theta))+ylim(0,1)+geom_line(aes(y=capon_Norm,colour="Capon"))+
-  geom_line(aes(y=para_Norm,colour="Para"))+geom_line(aes(y=savage_Norm,colour="Savage"))+xlim(0.95,5.05)+
-  scale_colour_manual(values =c("Capon"="red","Para"="blue","Savage"="green"))+theme(legend.position=c(0.15,0.9),legend.key.size = unit(0.1,"cm"))+
-  labs(title = "Normal",colour="Colour")+theme(plot.title = element_text(hjust = 0.5,size = 10))+
-  theme(axis.title.y = element_blank(),axis.title.x = element_blank())
 
-
-
-
-
-c_weibull=ggplot(data,aes(theta))+ylim(0,1)+geom_line(aes(y=capon_Weib,colour="Capon"))+
-  geom_line(aes(y=para_Weib,colour="Para"))+geom_line(aes(y=savage_Weib,colour="Savage"))+xlim(0.95,5.05)+
-  scale_colour_manual(values =c("Capon"="red","Para"="blue","Savage"="green"))+theme(legend.position=c(0.15,0.9),legend.key.size = unit(0.1,"cm"))+
-  labs(title = "Weibull",colour="Colour")+theme(plot.title = element_text(hjust = 0.5,size = 10))+
-  theme(axis.title.y = element_blank(),axis.title.x = element_blank())
-
-
-
-c_gamma=ggplot(data,aes(theta))+ylim(0,1)+geom_line(aes(y=capon_Gam,colour="Capon"))+
-  geom_line(aes(y=para_Gam,colour="Para"))+geom_line(aes(y=savage_Exp,colour="Savage"))+xlim(0.95,5.05)+
-  scale_colour_manual(values =c("Capon"="red","Para"="blue","Savage"="green"))+theme(legend.position=c(0.15,0.9),legend.key.size = unit(0.1,"cm"))+
-  labs(title = "Gamma",colour="Colour")+theme(plot.title = element_text(hjust = 0.5,size = 10))+
-  theme(axis.title.y = element_blank(),axis.title.x = element_blank())
-
-
-
-figure=ggarrange(c_normal,c_exp,c_weibull,c_gamma,ncol=2,nrow = 3)
-annotate_figure(figure,left = text_grob("Power Of The Test Statistic",rot=90),
-                bottom = text_grob("theta",size = 16),top =text_grob("Comparisions Of F, Savage And Capon",face="bold",color = "brown"))
-##########################################################
-
-
-
-
-
+ggplot(encode_pcs,aes(x=theta,y=value,colour=Statistic))+geom_line()+facet_wrap(~Distribution,ncol=3,scales = "free")+
+  labs(title = "Comparison of power graph of \nF, Capon and Savage  statistic",y="Power")+
+  theme_mine()
 
 
 
