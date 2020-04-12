@@ -16,8 +16,8 @@ theta2=seq(5,1,len=1000)
 
 data=data.frame(cbind(L_Normal,L_Gamma,L_Exp,L_Logis,L_Weibull,theta2))
 data1=data.frame(cbind(S_Normal,S_Gamma,S_Exp,S_Logis,S_Weibull,theta))
-
-
+data
+require(tidyr)
 
 econdata1 <- gather(data1, key="measure", value="value", c("S_Normal","S_Gamma","S_Exp","S_Logis","S_Weibull"))
 
@@ -32,7 +32,7 @@ s1=ggplot(data = econdata1,aes(x=theta,y=value))+geom_line(colour="blue")+
         geom_abline(slope = 0,intercept = 0.05,colour="green",linetype="dashed")+
         xlab("theta")+ylab("Power")+
         labs(title = "Comparison Of Power Curve in\n Parametric Case (F-Statistic)")+
-        theme(plot.title = element_text(hjust = 0.5,face = "bold",colour="brown"))
+       theme_mine() 
 s1
 
 
@@ -46,11 +46,8 @@ s2=ggplot(data = data1,aes(x=theta))+geom_line(aes(y=S_Exp,colour="Exp"))+
         geom_abline(slope = 0,intercept = 1,colour="black",linetype="dashed")+
         geom_abline(slope = 0,intercept = 0.05,colour="black",linetype="dashed")+xlim(0.95,10.05)+ylab("Power")+xlab("theta")+
         labs(title = "Comparison Of Power Curve in\n Parametric Case (F-Statistic)",colour="Colour")+
-        theme(plot.title = element_text(hjust = 0.5,face = "bold",colour="brown"))+
-        theme(legend.position=c(0.15,0.7),legend.key.size = unit(0.2,"cm"))+
-        theme(axis.line = element_line(colour="grey"),axis.ticks =element_line(colour = "black",lineend = "square") )
+        theme_mine()%+replace%theme(legend.position=c(0.15,0.7))
 s2
-
 #Large_outer_true  Large_outer_False
 l1=ggplot(data = econdata,aes(x=theta2,y=value))+geom_line(colour="blue")+
         xlim(0.95,5.05)+
@@ -59,7 +56,7 @@ l1=ggplot(data = econdata,aes(x=theta2,y=value))+geom_line(colour="blue")+
         geom_abline(slope = 0,intercept = 0.05,colour="green",linetype="dashed")+
         xlab("theta")+ylab("Power")+
         labs(title = "Comparison Of Power Curve in\n Parametric Case Large Sample(F-Statistic)")+
-        theme(plot.title = element_text(hjust = 0.5,face = "bold",colour="brown"))
+        theme_mine()
 
 
 l1
@@ -73,12 +70,9 @@ l2=ggplot(data = data,aes(x=theta2))+geom_line(aes(y=L_Exp,colour="Exp"))+
         geom_abline(slope = 0,intercept = 1,colour="black",linetype="dashed")+
         geom_abline(slope = 0,intercept = 0.05,colour="black",linetype="dashed")+xlim(0.95,5.05)+ylab("Power")+xlab("theta")+
         labs(title = "Comparison Of Power Curve in\n Parametric Case (F-Statistic)",colour="Colour")+
-        theme(plot.title = element_text(hjust = 0.5,face = "bold",colour="brown"))+
-        theme(legend.position=c(0.15,0.7),legend.key.size = unit(0.2,"cm"))+
-        theme(axis.line = element_line(colour="grey"),axis.ticks =element_line(colour = "black",lineend = "square"))
+       theme_mine()%+replace%theme(legend.position=c(0.15,0.7))
+
 l2
-
-
 
 
 
