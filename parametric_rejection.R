@@ -1,3 +1,7 @@
+
+#To run this code first run "modified_draws.R"
+
+
 parametric_rejection=function(n,m,rdist=rNorm,theta=1,repl=10000,p=0.05){
   new=function(){
     x = rdist(m,theta= 1)
@@ -32,7 +36,7 @@ power_curve <- function(n, m, from=0.2, to=1, len=30,
                            as.character(substitute(stat_rejection)), n, m,
                           as.character(substitute(rdist)), from, to, len, repl))
 
- library("lattice")
+ require("lattice")
   xyplot(power~theta,type="l",xlim = c(to + 0.2, from - 0.2),ylim = c(0,1.05),grid=TRUE,
          panel = function(...){
     panel.xyplot(...)
