@@ -45,8 +45,10 @@ para_Gam=as.vector(read.csv("~/Desktop/GIT/Nonparametric/data/power -- parametri
 
 
 
-
-
+library(ggplot2)
+library(dplyr)
+library(reshape2)
+library(tidyr)
 #para_Gam
 
 
@@ -61,9 +63,7 @@ theta=seq(5,1,len=1000)
 
 
 
-library(ggplot2)
-library(dplyr)
-library(reshape2)
+
 
 
 
@@ -82,7 +82,7 @@ Statistic=rep(c("F","Capon"),each=5000)
 encode_pc["measure"]=Statistic
 encode_pc=cbind(encode_pc,Distribution)
 
-ggplot(encode_pc,aes(x=theta,y=value,colour=Statistic))+geom_line()+facet_wrap(~Distribution,ncol=3,scales = "free")+
+ggplot(encode_pc,aes(x=theta,y=value,colour=Statistic))+geom_line()+facet_wrap(~Distribution,ncol=3)+
   labs(title = "Comparison of power graph of\n F and Capon  statistic",y="Power")+
   theme_mine()
 
@@ -116,7 +116,7 @@ encode_ps
 encode_ps=cbind(encode_ps,Distribution)
 encode_ps
 
-ggplot(encode_ps,aes(x=theta,y=value,colour=Statistic))+geom_line()+facet_wrap(~Distribution,ncol=3,scales = "free")+
+ggplot(encode_ps,aes(x=theta,y=value,colour=Statistic))+geom_line()+facet_wrap(~Distribution,ncol=3)+
   labs(title = "Comparison of power graph of\n F and Savage  statistic",y="Power")+
   theme_mine()
 
@@ -146,7 +146,7 @@ encode_cs["measure"]=Statistic
 encode_cs=cbind(encode_cs,Distribution)
 
 
-ggplot(encode_cs,aes(x=theta,y=value,colour=Statistic))+geom_line()+facet_wrap(~Distribution,ncol=3,scales = "free")+
+ggplot(encode_cs,aes(x=theta,y=value,colour=Statistic))+geom_line()+facet_wrap(~Distribution,ncol=3)+
   labs(title = "Comparison of power graph of\n Capon and Savage  statistic",y="Power")+
   theme_mine()
 
@@ -169,7 +169,7 @@ encode_pcs["measure"]=Statistic
 encode_pcs=cbind(encode_pcs,Distribution)
 
 
-ggplot(encode_pcs,aes(x=theta,y=value,colour=Statistic))+geom_line()+facet_wrap(~Distribution,ncol=3,scales = "free")+
+ggplot(encode_pcs,aes(x=theta,y=value,colour=Statistic))+geom_line()+facet_wrap(~Distribution,ncol=3)+
   labs(title = "Comparison of power graph of \nF, Capon and Savage  statistic",y="Power")+
   theme_mine()
 
