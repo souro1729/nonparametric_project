@@ -1,8 +1,10 @@
 
+
+
+require(ggplot2)
 Chii=function(n,m=40,breaking=20){
   set.seed(42)
   require(zoo)
-  require(ggplot2)
   z=data.frame(replicate(n,(rchisq(1,m)-m)/sqrt(2*m)))
   names(z)="x"
   x=as.numeric(as.character(unlist(z[1])))
