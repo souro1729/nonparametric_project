@@ -20,17 +20,17 @@ warning("Please Connect To your internet...")
 download.file("https://github.com/souro1729/nonparametric_project/raw/master/Souro.zip",destfile = "Souro.zip")
 unzip("souro.zip",exdir = file)
 
-
-
-warning("Get Power Curve. It takes Lots of time so you can Skip\n to parametric plotting line 73
-        or large sample check line 52,\n this data is already stored in  file: New....")
 source("modified_draws.R")
 source("parametric_rejection.R")
 
+warning("Get Power Curve. It takes Lots of time so you can Skip\n to parametric plotting line 73
+        or large sample check line 52,\n this data is already stored in  file: New....")
 
 
 
 
+
+warning("Generating Data....")
 power_curve(30,30,len=1000,repl = 1000)
 power_curve(30,30,len=1000,repl=1000,rdist = rExp)
 power_curve(30,30,len=1000,repl=1000,rdist = rGamma)
@@ -92,8 +92,8 @@ source("savage.R")
 warning("this also need non_paramatric data, which may take long time.\n Skip to 128
          You can get the generated in the file: New")
 
-warning("Nonparametric Power curve Draw")
 
+warning("Generating Data")
 power_curve(30, 30, len = 1000, rdist = rWeibull, stat_rejection = savage_rejection, repl=1000)
 power_curve(30, 30, len = 1000, rdist = rNorm, stat_rejection = savage_rejection, repl=1000)
 power_curve(30, 30, len = 1000, rdist = rExp, stat_rejection = savage_rejection, repl=1000)
@@ -129,7 +129,7 @@ power_curve(20, 30, len = 1000, rdist = rExp, stat_rejection = capon_rejection, 
 power_curve(20, 30, len = 1000, rdist = rGamma, stat_rejection = capon_rejection, repl=1000)
 power_curve(20, 30, len = 1000, rdist = rLogis, stat_rejection = capon_rejection, repl=1000)
 
-
+warning("Nonparametric Power curve Draw")
 warning("plotting nonparametric curve")
 plot_power(30, 30, "savage", c("Norm", "Weibull", "Gamma", "Exp"))
 plot_power(30,30,"capon",c("Norm", "Weibull", "Gamma", "Exp"))
