@@ -5,9 +5,13 @@
 
 ##For plotting purpose please run "theme_mine.R" before plotting
 
+#
+Dir_name=dirname(rstudioapi::getSourceEditorContext()$path)
+Dir_name
+cc=file.path(Dir_name,"Small/power -- parametric_rejection (10, 10) -- rWeibull -- 0.10, 1.00, 1000.00 -- repl=10000.csv")
 
-
-S_Weibull<- as.vector(read.csv("~/Desktop/GIT/Nonparametric/Small/power -- parametric_rejection (10, 10) -- rWeibull -- 0.10, 1.00, 1000.00 -- repl=10000.csv"))[,-1]
+cc
+S_Weibull<- as.vector(read.csv(cc))[,-1]
 S_Normal<-as.vector(read.csv("~/Desktop/GIT/Nonparametric/Small/power -- parametric_rejection (10, 10) -- rNorm -- 0.10, 1.00, 1000.00 -- repl=10000.csv"))[,-1]
 S_Gamma<-as.vector(read.csv("~/Desktop/GIT/Nonparametric/Small/power -- parametric_rejection (10, 10) -- rGamma -- 0.10, 1.00, 1000.00 -- repl=10000.csv"))[,-1]
 S_Exp<-as.vector(read.csv("~/Desktop/GIT/Nonparametric/Small/power -- parametric_rejection (10, 10) -- rExp -- 0.10, 1.00, 1000.00 -- repl=10000.csv"))[,-1]
