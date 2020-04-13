@@ -90,7 +90,7 @@ source("Nonpara.R")
 source("Capon.R")
 source("savage.R")
 
-warning("this also need non_paramatric data, which may take long time.\n Skip to 128
+warning("this also need non_paramatric data, which may take long time.\n Skip to 133
          You can get the generated in the file: New")
 
 
