@@ -69,7 +69,7 @@ require(tidyr)
 Parametric=data.frame(cbind(para_Exp,para_Gam,para_Log,para_Norm,para_Weib))
 Capon=data.frame(cbind(capon_Exp,capon_Gam,capon_Log,capon_Norm,capon_Weib))
 Savage=data.frame(cbind(savage_Exp,savage_Gam,savage_Log,savage_Norm,savage_Weib))
-theta=seq(0.2,1,len=1000)
+theta=seq(5,1,len=1000)
 
 
 
@@ -93,7 +93,7 @@ encode_pc["measure"]=Statistic_pc
 encode_pc=cbind(encode_pc,Distribution_pc)
 
 pc=ggplot(encode_pc,aes(x=theta,y=value,colour=Statistic_pc))+geom_line()+facet_wrap(~Distribution_pc,ncol=3)+
-  labs(title = "Comparison of power graph of\n F and Capon  statistic",y="Power",color="Statistic")+xlim(1.05,0.15)+
+  labs(title = "Comparison of power graph of\n F and Capon  statistic",y="Power",color="Statistic")+xlim(0.95,5.05)+
   theme_mine()
 
 
@@ -126,7 +126,7 @@ encode_ps=cbind(encode_ps,Distribution_ps)
 
 
 ps=ggplot(encode_ps,aes(x=theta,y=value,colour=Statistic_ps))+geom_line()+facet_wrap(~Distribution_ps,ncol=3)+
-  labs(title = "Comparison of power graph of\n F and Savage  statistic",color="Statistic")+xlim(1.05,0.15)+
+  labs(title = "Comparison of power graph of\n F and Savage  statistic",color="Statistic")+xlim(0.95,5.05)+
   theme_mine()
 
 
@@ -156,7 +156,7 @@ encode_cs=cbind(encode_cs,Distribution_cs)
 
 
 cs=ggplot(encode_cs,aes(x=theta,y=value,colour=Statistic_cs))+geom_line()+facet_wrap(~Distribution_cs,ncol=3)+
-  labs(title = "Comparison of power graph of\n Capon and Savage  statistic",color="Statistic")+xlim(1.05,0.15)+
+  labs(title = "Comparison of power graph of\n Capon and Savage  statistic",color="Statistic")+xlim(0.95,0.15)+
   theme_mine()
 
 
@@ -179,7 +179,7 @@ encode_pcs=cbind(encode_pcs,Distribution_pcs)
 
 
 pcs=ggplot(encode_pcs,aes(x=theta,y=value,colour=Statistic_pcs))+geom_line()+facet_wrap(~Distribution_pcs,ncol=3)+
-  labs(title = "Comparison of power graph of \nF, Capon and Savage  statistic",color="Statistic")+xlim(1.05,0.15)+
+  labs(title = "Comparison of power graph of \nF, Capon and Savage  statistic",color="Statistic")+xlim(0.95,5.05)+
   theme_mine()
 mylist=list("pc"=pc,"cs"=cs,"ps"=ps,"pcs"=pcs)
 return(mylist)
