@@ -156,7 +156,7 @@ encode_cs=cbind(encode_cs,Distribution_cs)
 
 
 cs=ggplot(encode_cs,aes(x=theta,y=value,colour=Statistic_cs))+geom_line()+facet_wrap(~Distribution_cs,ncol=3)+
-  labs(title = "Comparison of power graph of\n Capon and Savage  statistic",color="Statistic")+xlim(0.95,0.15)+
+  labs(title = "Comparison of power graph of\n Capon and Savage  statistic",color="Statistic")+xlim(0.95,5.15)+
   theme_mine()
 
 
