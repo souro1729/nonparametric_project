@@ -23,8 +23,8 @@ unzip("souro.zip",exdir = file)
 source("modified_draws.R")
 source("parametric_rejection.R")
 
-warning("Get Power Curve. It takes Lots of time so you can Skip\n to parametric plotting line 73
-        or large sample check line 52,\n this data is already stored in  file: New....")
+warning("Get Power Curve. It takes Lots of time so you can Skip\n to parametric plotting line 77
+        or large sample check line 56,\n this data is already stored in  file: New....")
 
 
 
@@ -91,7 +91,7 @@ source("Capon.R")
 source("savage.R")
 
 warning("this also need non_paramatric data, which may take long time.\n Skip to 133
-         You can get the generated in the file: New")
+         You can get the generated in the file: New...")
 
 
 warning("Generating Data")
