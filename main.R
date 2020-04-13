@@ -64,7 +64,7 @@ a$chisq.test
 ggplot(data=a$data,aes(sample=a$data[,1]))+geom_qq(colour="red")+geom_qq_line(colour="blue")
 
 warning("This also in the file: New...\n
-        You can skip to line 79...")
+        You can skip to line 77...")
 warning("Generating data for large sample....")
 
 power_curve(50,50,len=1000,repl = 10000)
