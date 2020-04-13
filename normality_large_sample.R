@@ -16,12 +16,7 @@ Chii=function(n,m=40,breaking=20){
   my_list=list("data"=z,"hist"=p1,"shapiro_test"=shap_test,"chisq.test"=chi_test)
   return(my_list)
 }
-a=Chii(n=50,m=50,breaking = 25)
 
-a$shapiro_test
-a$chisq.test
-
-ggplot(data=a$data,aes(sample=a$data[,1]))+geom_qq(colour="red")+geom_qq_line(colour="blue")
 
 
 
