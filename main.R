@@ -17,7 +17,8 @@ unzip("souro.zip",exdir = file)
 
 
 
-warning("Get Power Curve. It takes Lots of time so you can Skip to parametric plotting,\n this data is already stored in  file: New....")
+warning("Get Power Curve. It takes Lots of time so you can Skip\n to parametric plotting line 73
+        or large sample check line 52,\n this data is already stored in  file: New....")
 source("modified_draws.R")
 source("parametric_rejection.R")
 
@@ -25,7 +26,7 @@ source("parametric_rejection.R")
 
 
 
-power_curve(30,30,len=100,repl = 100)
+power_curve(30,30,len=1000,repl = 1000)
 power_curve(30,30,len=1000,repl=1000,rdist = rExp)
 power_curve(30,30,len=1000,repl=1000,rdist = rGamma)
 power_curve(30,30,len=1000,repl=1000,rdist = rLogis)
@@ -78,15 +79,16 @@ t$Small
 t$Large_outer
 t$Large
 
-
-
-warning("this also need non_paramatric data, which may take long time.\n
-         You can get the generated in the file: New")
-warning("Nonparametric Power curve Draw")
 source("modified_draws.R")
 source("Nonpara.R")
 source("Capon.R")
 source("savage.R")
+
+warning("this also need non_paramatric data, which may take long time.\n Skip to 128
+         You can get the generated in the file: New")
+
+warning("Nonparametric Power curve Draw")
+
 power_curve(30, 30, len = 1000, rdist = rWeibull, stat_rejection = savage_rejection, repl=1000)
 power_curve(30, 30, len = 1000, rdist = rNorm, stat_rejection = savage_rejection, repl=1000)
 power_curve(30, 30, len = 1000, rdist = rExp, stat_rejection = savage_rejection, repl=1000)
