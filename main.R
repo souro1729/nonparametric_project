@@ -11,7 +11,7 @@ dir.create(file, showWarnings = TRUE)
 setwd(file.path(Dirname, subDir))
 dir.create("New")
 
-download.file("https://github.com/souro1729/nonparametric_project/raw/master/souro.zip",destfile = "souro.zip")
+download.file("https://github.com/souro1729/nonparametric_project/raw/master/Souro.zip",destfile = "Souro.zip")
 unzip("souro.zip",exdir = file)
 
 
