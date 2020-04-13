@@ -6,23 +6,23 @@
 ##For plotting purpose please run "theme_mine.R" before plotting
 
 #
-Dir_name=dirname(rstudioapi::getSourceEditorContext()$path)
-Dir_name
-cc=file.path(Dir_name,"Small/power -- parametric_rejection (10, 10) -- rWeibull -- 0.10, 1.00, 1000.00 -- repl=10000.csv")
+plotting=function(){
+#cc=file.path(Dir_name,"New/power -- parametric_rejection (10, 10) -- rWeibull -- 0.10, 1.00, 1000.00 -- repl=10000.csv")
+Dir_name=file.path(getwd(),"New")
+source("theme_mine.R")
+#cc
+S_Weibull<- as.vector(read.csv(file.path(Dir_name,"power -- parametric_rejection (10, 10) -- rWeibull -- 0.10, 1.00, 1000.00 -- repl=10000.csv")))[,-1]
+S_Normal<-as.vector(read.csv(file.path(Dir_name,"power -- parametric_rejection (10, 10) -- rNorm -- 0.10, 1.00, 1000.00 -- repl=10000.csv")))[,-1]
+S_Gamma<-as.vector(read.csv(file.path(Dir_name,"power -- parametric_rejection (10, 10) -- rGamma -- 0.10, 1.00, 1000.00 -- repl=10000.csv")))[,-1]
+S_Exp<-as.vector(read.csv(file.path(Dir_name,"power -- parametric_rejection (10, 10) -- rExp -- 0.10, 1.00, 1000.00 -- repl=10000.csv")))[,-1]
+S_Logis<-as.vector(read.csv(file.path(Dir_name,"power -- parametric_rejection (10, 10) -- rLogis -- 0.10, 1.00, 1000.00 -- repl=10000.csv")))[,-1]
 
-cc
-S_Weibull<- as.vector(read.csv(cc))[,-1]
-S_Normal<-as.vector(read.csv("~/Desktop/GIT/Nonparametric/Small/power -- parametric_rejection (10, 10) -- rNorm -- 0.10, 1.00, 1000.00 -- repl=10000.csv"))[,-1]
-S_Gamma<-as.vector(read.csv("~/Desktop/GIT/Nonparametric/Small/power -- parametric_rejection (10, 10) -- rGamma -- 0.10, 1.00, 1000.00 -- repl=10000.csv"))[,-1]
-S_Exp<-as.vector(read.csv("~/Desktop/GIT/Nonparametric/Small/power -- parametric_rejection (10, 10) -- rExp -- 0.10, 1.00, 1000.00 -- repl=10000.csv"))[,-1]
-S_Logis<-as.vector(read.csv("~/Desktop/GIT/Nonparametric/Small/power -- parametric_rejection (10, 10) -- rLogis -- 0.10, 1.00, 1000.00 -- repl=10000.csv"))[,-1]
 
-
-L_Weibull<-as.vector(read.csv("~/Desktop/GIT/Nonparametric/Large/power -- parametric_rejection (50, 50) -- rWeibull -- 0.20, 1.00, 1000.00 -- repl=10000.csv"))[,-1]
-L_Normal<-as.vector(read.csv("~/Desktop/GIT/Nonparametric/Large/power -- parametric_rejection (50, 50) -- rNorm -- 0.20, 1.00, 1000.00 -- repl=10000.csv"))[,-1]
-L_Gamma<-as.vector(read.csv("~/Desktop/GIT/Nonparametric/Large/power -- parametric_rejection (50, 50) -- rGamma -- 0.20, 1.00, 1000.00 -- repl=10000.csv"))[,-1]
-L_Exp<-as.vector(read.csv("~/Desktop/GIT/Nonparametric/Large/power -- parametric_rejection (50, 50) -- rExp -- 0.20, 1.00, 1000.00 -- repl=10000.csv"))[,-1]
-L_Logis<-as.vector(read.csv("~/Desktop/GIT/Nonparametric/Large/power -- parametric_rejection (50, 50) -- rLogis -- 0.20, 1.00, 1000.00 -- repl=10000.csv"))[,-1]
+L_Weibull<-as.vector(read.csv(file.path(Dir_name,"power -- parametric_rejection (50, 50) -- rWeibull -- 0.20, 1.00, 1000.00 -- repl=10000.csv")))[,-1]
+L_Normal<-as.vector(read.csv(file.path(Dir_name,"power -- parametric_rejection (50, 50) -- rNorm -- 0.20, 1.00, 1000.00 -- repl=10000.csv")))[,-1]
+L_Gamma<-as.vector(read.csv(file.path(Dir_name,"power -- parametric_rejection (50, 50) -- rGamma -- 0.20, 1.00, 1000.00 -- repl=10000.csv")))[,-1]
+L_Exp<-as.vector(read.csv(file.path(Dir_name,"power -- parametric_rejection (50, 50) -- rExp -- 0.20, 1.00, 1000.00 -- repl=10000.csv")))[,-1]
+L_Logis<-as.vector(read.csv(file.path(Dir_name,"power -- parametric_rejection (50, 50) -- rLogis -- 0.20, 1.00, 1000.00 -- repl=10000.csv")))[,-1]
 
 theta=seq(0.1,1,len=1000)
 theta2=seq(0.2,1,len=1000)
@@ -46,7 +46,7 @@ s1=ggplot(data = econdata1,aes(x=theta,y=value))+geom_line(colour="blue")+
         xlab("sigma")+ylab("Power")+
         labs(title = "Comparison Of Power Curve in\n Parametric Case (F-Statistic)")+
        theme_mine() %+replace% theme(panel.spacing = unit(1, "lines"))
-s1
+
 
 
 
@@ -60,7 +60,7 @@ s2=ggplot(data = data1,aes(x=theta))+geom_line(aes(y=S_Exp,colour="Exp"))+
         geom_abline(slope = 0,intercept = 0.05,colour="black",linetype="dashed")+xlim(1.05,0.05)+ylab("Power")+xlab("sigma")+
         labs(title = "Comparison Of Power Curve in\n Parametric Case (F-Statistic)",colour="Colour")+
         theme_mine()%+replace%theme(legend.position=c(0.15,0.7))
-s2
+
 #Large_outer_true  Large_outer_False
 l1=ggplot(data = econdata,aes(x=theta2,y=value))+geom_line(colour="blue")+
         xlim(1.05,0.15)+
@@ -72,7 +72,7 @@ l1=ggplot(data = econdata,aes(x=theta2,y=value))+geom_line(colour="blue")+
         theme_mine()
 
 
-l1
+
 
 
 l2=ggplot(data = data,aes(x=theta2))+geom_line(aes(y=L_Exp,colour="Exp"))+
@@ -85,9 +85,13 @@ l2=ggplot(data = data,aes(x=theta2))+geom_line(aes(y=L_Exp,colour="Exp"))+
         labs(title = "Comparison Of Power Curve in\n Parametric Case (F-Statistic)",colour="Colour")+
        theme_mine()%+replace%theme(legend.position=c(0.15,0.7))
 
-l2
 
 
+mylist=list("Small_outer"=s1,"Small"=s2,"Large_outer"=l1,"Large"=l2)
+
+return(mylist)
+
+}
 
 
 
