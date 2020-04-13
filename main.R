@@ -1,7 +1,12 @@
 #####
 print("Run this Code....")
 
+require(ggplot2)
+require(dplyr)
+require(pbapply)
+require(lattice)
 
+require(tidyr)
 
 Dirname=getwd()
 Dirname
