@@ -25,7 +25,7 @@ source("parametric_rejection.R")
 
 
 
-power_curve(30,30,len=1000,repl = 1000)
+power_curve(30,30,len=100,repl = 100)
 power_curve(30,30,len=1000,repl=1000,rdist = rExp)
 power_curve(30,30,len=1000,repl=1000,rdist = rGamma)
 power_curve(30,30,len=1000,repl=1000,rdist = rLogis)
@@ -87,7 +87,7 @@ source("modified_draws.R")
 source("Nonpara.R")
 source("Capon.R")
 source("savage.R")
-power_curve(30, 30, len = 1000, rdist = rWeibull, stat_rejection = savage_rejection, repl=1000)
+power_curve(30, 30, len = 1000, rdist = rWeibull, stat_rejection = savage_rejection, repl=10)
 power_curve(30, 30, len = 1000, rdist = rNorm, stat_rejection = savage_rejection, repl=1000)
 power_curve(30, 30, len = 1000, rdist = rExp, stat_rejection = savage_rejection, repl=1000)
 power_curve(30, 30, len = 1000, rdist = rGamma, stat_rejection = savage_rejection, repl=1000)
@@ -125,7 +125,7 @@ power_curve(20, 30, len = 1000, rdist = rLogis, stat_rejection = capon_rejection
 
 warning("plotting nonparametric curve")
 plot_power(30, 30, "savage", c("Norm", "Weibull", "Gamma", "Exp"))
-
+plot_power(30,30,"capon",c("Norm", "Weibull", "Gamma", "Exp"))
 
 source('Comparision_Para_NonPara.R')
 comp_plot=Comp_Plot()
